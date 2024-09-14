@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VOM_HIVE.API.Data;
+using VOM_HIVE.API.Services.Product;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductInterface, ProductService>();
 
 var app = builder.Build();
 
