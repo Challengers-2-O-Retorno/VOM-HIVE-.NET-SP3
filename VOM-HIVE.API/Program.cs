@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.Services.Company;
 using VOM_HIVE.API.Services.Product;
+using VOM_HIVE.API.Services.ProfileUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductInterface, ProductService>();
 builder.Services.AddScoped<ICompanyInterface, CompanyService>();
+builder.Services.AddScoped<IProfileUserInterface, ProfileUserService>();
 
 var app = builder.Build();
 
