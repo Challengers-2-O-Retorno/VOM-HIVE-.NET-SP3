@@ -21,7 +21,7 @@ namespace VOM_HIVE.API.Services.ProfileUser
             ResponseModel<List<ProfileuserModel>> resposta = new ResponseModel<List<ProfileuserModel>>();
             try
             {
-                var user = await _context.Profile_user.ToListAsync();
+                var user = await _context.Profile_user.Include(c => c.Company).ToListAsync();
 
                 resposta.Dados = user;
                 resposta.Mensagem = "Todos os usuários foram coletados!";
@@ -42,7 +42,7 @@ namespace VOM_HIVE.API.Services.ProfileUser
 
             try
             {
-                var user = await _context.Profile_user.FirstOrDefaultAsync(userDb => userDb.id_user == id_user);
+                var user = await _context.Profile_user.Include(c => c.Company).FirstOrDefaultAsync(userDb => userDb.id_user == id_user);
 
                 if (user == null)
                 {
@@ -120,6 +120,8 @@ namespace VOM_HIVE.API.Services.ProfileUser
                 await _context.SaveChangesAsync();
 
                 resposta.Dados = await _context.Profile_user.Include(co => co.Company).ToListAsync();
+                resposta.Mensagem = "Usuário criado com sucesso!";
+
                 return resposta;
             }
             catch (Exception ex)
