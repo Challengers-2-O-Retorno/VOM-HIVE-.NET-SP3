@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using VOM_HIVE.API.Data;
+using VOM_HIVE.API.Services.Campaign;
 using VOM_HIVE.API.Services.Company;
 using VOM_HIVE.API.Services.Product;
 using VOM_HIVE.API.Services.ProfileUser;
@@ -7,18 +9,19 @@ using VOM_HIVE.API.Services.ProfileUser;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+// Configurando a conexão com o banco de dados Oracle
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
 });
 
+// Configuração de Swagger
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
+// Injeção de dependência para os serviços
 builder.Services.AddScoped<IProductInterface, ProductService>();
 builder.Services.AddScoped<ICompanyInterface, CompanyService>();
 builder.Services.AddScoped<IProfileUserInterface, ProfileUserService>();
@@ -33,7 +36,38 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAllOrigins");  // Aplicando a polÃ­tica de CORS configurada
+app.UseCors(builder =>
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+        c.RoutePrefix = string.Empty;
+    });
+}
+
+app.UseExceptionHandler(appBuilder =>
+{
+    appBuilder.Run(async context =>
+    {
+        context.Response.ContentType = "application/json";
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        if (exceptionHandlerPathFeature?.Error != null)
+        {
+            var exception = exceptionHandlerPathFeature.Error;
+            var response = new
+            {
+                error = exception.Message
+            };
+            await context.Response.WriteAsJsonAsync(response);
+        }
+    });
+});
 
 app.UseRouting();
 
