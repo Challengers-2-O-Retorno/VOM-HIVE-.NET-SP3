@@ -17,11 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductInterface, ProductService>();
 builder.Services.AddScoped<ICompanyInterface, CompanyService>();
 builder.Services.AddScoped<IProfileUserInterface, ProfileUserService>();
+builder.Services.AddScoped<ICampaignInterface, CampaignService>();
 
 var app = builder.Build();
 
@@ -31,6 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAllOrigins");  // Aplicando a política de CORS configurada
+
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
