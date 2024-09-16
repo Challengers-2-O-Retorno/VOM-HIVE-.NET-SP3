@@ -1,3 +1,6 @@
+using IdempotentAPI.Cache.DistributedCache.Extensions.DependencyInjection;
+using IdempotentAPI.Core;
+using IdempotentAPI.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using VOM_HIVE.API.Data;
@@ -68,6 +71,12 @@ app.UseExceptionHandler(appBuilder =>
         }
     });
 });
+
+builder.Services.AddIdempotentAPI();
+
+builder.Services.AddIdempotentMinimalAPI(new IdempotencyOptions());
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddIdempotentAPIUsingDistributedCache();
 
 app.UseRouting();
 

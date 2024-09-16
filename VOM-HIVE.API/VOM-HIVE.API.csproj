@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdempotentAPI" Version="2.6.0" />
+    <PackageReference Include="IdempotentAPI.Cache.Abstractions" Version="2.2.0" />
+    <PackageReference Include="IdempotentAPI.Cache.DistributedCache" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>

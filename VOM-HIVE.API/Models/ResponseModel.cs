@@ -1,5 +1,6 @@
 ﻿namespace VOM_HIVE.API.Models
 {
+    [Serializable]
     public class ResponseModel<T>
     {
         public T? Dados {get; set;}

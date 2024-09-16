@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdempotentAPI.Filters;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
 using VOM_HIVE.API.DTO.Product;
@@ -7,6 +8,7 @@ using VOM_HIVE.API.Services.Product;
 
 namespace VOM_HIVE.API.Controllers
 {
+    [Idempotent(ExpireHours = 24)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase

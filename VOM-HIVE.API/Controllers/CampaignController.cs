@@ -23,6 +23,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpGet("ListCamapaigns")]
+        
         public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> ListCamapaigns()
         {
             var campaigns = await _campaignInterface.ListCampaign();
