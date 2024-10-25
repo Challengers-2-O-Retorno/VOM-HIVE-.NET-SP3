@@ -82,6 +82,7 @@ namespace VOM_HIVE.API.Services.Product
                 await _context.SaveChangesAsync();
 
                 resposta.Dados = product;
+
                 resposta.Mensagem = "Produto criado com sucesso!";
 
                 return resposta;
@@ -105,7 +106,7 @@ namespace VOM_HIVE.API.Services.Product
 
                 if (product == null)
                 {
-                    resposta.Mensagem = "Nenhum autor localizado!";
+                    resposta.Mensagem = "Nenhum produto localizado!";
                     return resposta;
                 }
 
