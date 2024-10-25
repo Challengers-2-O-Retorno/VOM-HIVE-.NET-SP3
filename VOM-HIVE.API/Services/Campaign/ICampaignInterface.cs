@@ -11,8 +11,8 @@ namespace VOM_HIVE.API.Services.Campaign
         Task<ResponseModel<CampaignModel>> FindCampaignById(int id_campaign);
         Task<ResponseModel<List<CampaignModel>>> FindCampaignByIdCompany(int id_company);
         Task<ResponseModel<List<CampaignModel>>> FindCampaignByIdProduct(int id_product);
-        Task<ResponseModel<List<CampaignModel>>> CreateCampaign(CampaignCreateDto campaignCreateDto);
-        Task<ResponseModel<List<CampaignModel>>> EditCampaign(CampaignEditDto campaignEditDto);
+        Task<ResponseModel<CampaignModel>> CreateCampaign(CampaignCreateDto campaignCreateDto);
+        Task<ResponseModel<CampaignModel>> EditCampaign(CampaignEditDto campaignEditDto);
         Task<ResponseModel<List<CampaignModel>>> DeleteCampaign(int id_campaign);
     }
 }
