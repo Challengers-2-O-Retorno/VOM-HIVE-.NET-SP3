@@ -321,9 +321,19 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task CreateCampaign_ReturnNull_WhenDoenstCreateCampaign()
+        public async Task CreateCampaign_ReturnNull_WhenDoenstExistCompany()
         {
             // Arrange
+
+            var product = new ProductModel
+            {
+                nm_product = "BotaCola",
+                category_product = "Bebida"
+            };
+
+            _context.Product.Add(product);
+            _context.SaveChanges();
+
             var campaign = new CampaignModel
             {
                 nm_campaign = "Cola ni mim, cola em nóis",
@@ -331,10 +341,8 @@ namespace VOM_HIVE.API.TESTS.Tests
                 dt_register = DateTime.Now.Date,
                 details = "alimentos",
                 status = "ativo",
+                id_product = product.id_product,
             };
-
-            _context.Campaign.Add(campaign);
-            _context.SaveChanges();
 
             // Act
             var response = await _client.PostAsJsonAsync("/api/Campaign/CreateCampaign", campaign);
@@ -346,6 +354,82 @@ namespace VOM_HIVE.API.TESTS.Tests
             var json = await response.Content.ReadFromJsonAsync<ResponseModel<CampaignModel>>();
 
             Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task CreateCampaign_ReturnNull_WhenDoesntExistProduct()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            var campaign = new CampaignModel
+            {
+                nm_campaign = "Cola ni mim, cola em nóis",
+                target = "adultos",
+                dt_register = DateTime.Now.Date,
+                details = "alimentos",
+                status = "ativo",
+                id_company = company.id_company
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Campaign/CreateCampaign", campaign);
+
+            // Asserts
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<CampaignModel>>();
+
+            Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task CreateCampaign_ReturnBadRequest_WhenNotEnoughtData()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            var product = new ProductModel
+            {
+                nm_product = "BotaCola",
+                category_product = "Bebida"
+            };
+
+            _context.Company.Add(company);
+            _context.Product.Add(product);
+            _context.SaveChanges();
+
+            var campaign = new CampaignModel
+            {
+                nm_campaign = "Cola ni mim, cola em nóis",
+                target = "adultos",
+                dt_register = DateTime.Now.Date,
+                status = "ativo",
+                id_product = product.id_product,
+                id_company = company.id_company
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Campaign/CreateCampaign", campaign);
+
+            // Asserts
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]

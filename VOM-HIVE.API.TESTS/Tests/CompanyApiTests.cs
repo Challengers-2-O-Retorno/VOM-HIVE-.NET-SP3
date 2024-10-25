@@ -230,6 +230,27 @@ namespace VOM_HIVE.API.TESTS.Tests
             Assert.Equal(company.dt_register.ToString("yyyy-MM-dd"), json.Dados.dt_register.ToString("yyyy-MM-dd"));
         }
 
+        public async Task CreateCompany_ReturnsNull_WhenNotEnoughtData()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Company/CreateCompany", company);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<CompanyModel>>();
+
+            Assert.Null(json.Dados);
+        }
+
         [Fact]
         public async Task EditCompany_ReturnsNoContent_WhenCompanyExist()
         {
