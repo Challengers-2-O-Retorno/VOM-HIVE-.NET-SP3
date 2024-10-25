@@ -175,7 +175,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task CreateProfileUser_ReturnsOKProfileUserAndProfileUser()
+        public async Task CreateProfileUser_ReturnsOKAndProfileUser()
         {
             //Arrange
             var company = new CompanyModel
@@ -196,7 +196,7 @@ namespace VOM_HIVE.API.TESTS.Tests
                 dt_register = DateTime.Now.Date,
                 permission_user = "Permission",
                 status = "Ativo",
-                id_company = company.id_company
+                Company = company
             };
 
             //Act
@@ -214,7 +214,6 @@ namespace VOM_HIVE.API.TESTS.Tests
             Assert.Equal(profileUser.dt_register.ToString("yyyy-MM-dd"), jsonProfileUser.Dados.dt_register.ToString("yyyy-MM-dd"));
             Assert.Equal(profileUser.permission_user, jsonProfileUser.Dados.permission_user);
             Assert.Equal(profileUser.status, jsonProfileUser.Dados.status);
-            Assert.Equal(profileUser.id_company, jsonProfileUser.Dados.id_company);
         }
 
         [Fact]
