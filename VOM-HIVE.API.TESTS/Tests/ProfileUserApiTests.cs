@@ -9,6 +9,8 @@ using VOM_HIVE.API.TESTS.Data;
 using Sp2.Models;
 using System.Net.Http.Json;
 using VOM_HIVE.API.Models;
+using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
@@ -170,6 +172,153 @@ namespace VOM_HIVE.API.TESTS.Tests
             var json = await response.Content.ReadFromJsonAsync<ResponseModel<ProfileuserModel>>();
 
             Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task CreateProfileUser_ReturnsOKProfileUserAndProfileUser()
+        {
+            //Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            var profileUser = new ProfileuserModel
+            {
+                nm_user = "Gabriel",
+                pass_user = "123456",
+                dt_register = DateTime.Now.Date,
+                permission_user = "Permission",
+                status = "Ativo",
+                id_company = company.id_company
+            };
+
+            //Act
+            var response = await _client.PostAsJsonAsync("/api/ProfileUser/CreateProfileUser", profileUser);
+
+            //Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var jsonProfileUser = await response.Content.ReadFromJsonAsync<ResponseModel<ProfileuserModel>>();
+
+            Assert.NotNull(jsonProfileUser.Dados);
+            Assert.Equal(profileUser.nm_user, jsonProfileUser.Dados.nm_user);
+            Assert.Equal(profileUser.pass_user, jsonProfileUser.Dados.pass_user);
+            Assert.Equal(profileUser.dt_register.ToString("yyyy-MM-dd"), jsonProfileUser.Dados.dt_register.ToString("yyyy-MM-dd"));
+            Assert.Equal(profileUser.permission_user, jsonProfileUser.Dados.permission_user);
+            Assert.Equal(profileUser.status, jsonProfileUser.Dados.status);
+            Assert.Equal(profileUser.id_company, jsonProfileUser.Dados.id_company);
+        }
+
+        [Fact]
+        public async Task CreateprofileUser_ReturnNull_WhenNotEnoughtDataProfileUser()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            var profileUser = new ProfileuserModel
+            {
+                nm_user = "Gabriel",
+                pass_user = "123456",
+                dt_register = DateTime.Now.Date,
+                permission_user = "Permission",
+                //status = "Ativo",
+                Company = company
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/ProfileUser/CreateProfileUser", profileUser);
+
+            // Asserts
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<ProfileuserModel>>();
+
+            Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task CreateprofileUser_ReturnBadRequest_WhenDoesntExistCompany()
+        {
+            // Arrange
+            var profileUser = new ProfileuserModel
+            {
+                nm_user = "Gabriel",
+                pass_user = "123456",
+                dt_register = DateTime.Now.Date,
+                permission_user = "Permission",
+                status = "Ativo",
+                //Company = company
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/ProfileUser/CreateProfileUser", profileUser);
+
+            // Asserts
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task EditProfileUser_ReturnsNoContent_WhenProfileUserExist()
+        {
+            //Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            var profileUser = new ProfileuserModel
+            {
+                nm_user = "Gabriel",
+                pass_user = "123456",
+                dt_register = DateTime.Now.Date,
+                permission_user = "Permission",
+                status = "Ativo",
+                Company = company
+            };
+
+            _context.Profile_user.Add(profileUser);
+            _context.SaveChanges();
+
+            var editedProfileUser = new ProfileuserModel
+            {
+                id_user = profileUser.id_user,
+                nm_user = "Juan",
+                pass_user = "45678",
+                dt_register = DateTime.Now.Date,
+                permission_user = "Permission",
+                status = "Inativo",
+                Company = company
+            };
+
+            //Act
+            var response = await _client.PutAsJsonAsync($"/api/ProfileUser/EditProfileUser/{profileUser.id_user}", editedProfileUser);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
     }
 }
