@@ -123,9 +123,9 @@ namespace VOM_HIVE.API.Services.Campaign
 
 
 
-        public async Task<ResponseModel<List<CampaignModel>>> CreateCampaign(CampaignCreateDto campaignCreateDto)
+        public async Task<ResponseModel<CampaignModel>> CreateCampaign(CampaignCreateDto campaignCreateDto)
         {
-            ResponseModel<List<CampaignModel>> resposta = new ResponseModel<List<CampaignModel>>();
+            ResponseModel<CampaignModel> resposta = new ResponseModel<CampaignModel>();
             try
             {
                 var campaignDb = await _context.Campaign
@@ -169,10 +169,12 @@ namespace VOM_HIVE.API.Services.Campaign
                 _context.Add(campaign);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Campaign
-                    .Include(c => c.Company)
-                    .Include(c => c.Product)
-                    .ToListAsync();
+                resposta.Dados = campaign;
+
+                //resposta.Dados = await _context.Campaign
+                //    .Include(c => c.Company)
+                //    .Include(c => c.Product)
+                //    .ToListAsync();
                 resposta.Mensagem = "Campanha criada com sucesso!";
 
                 return resposta;
@@ -201,8 +203,7 @@ namespace VOM_HIVE.API.Services.Campaign
 
                 _context.Remove(campaign);
                 await _context.SaveChangesAsync();
-                
-                resposta.Dados = await _context.Campaign.ToListAsync();
+
                 resposta.Mensagem = "Campanha removida com sucesso!";
 
                 return resposta;
@@ -215,9 +216,9 @@ namespace VOM_HIVE.API.Services.Campaign
             }
         }
 
-        public async Task<ResponseModel<List<CampaignModel>>> EditCampaign(CampaignEditDto campaignEditDto)
+        public async Task<ResponseModel<CampaignModel>> EditCampaign(CampaignEditDto campaignEditDto)
         {
-            ResponseModel<List<CampaignModel>> resposta = new ResponseModel<List<CampaignModel>>();
+            ResponseModel<CampaignModel> resposta = new ResponseModel<CampaignModel>();
             try
             {
                 var campaign = await _context.Campaign
@@ -270,7 +271,7 @@ namespace VOM_HIVE.API.Services.Campaign
                 _context.Update(campaign);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Campaign.ToListAsync();
+                resposta.Dados = campaign;
                 return resposta;
             }
             catch(DbUpdateException dbEx)
