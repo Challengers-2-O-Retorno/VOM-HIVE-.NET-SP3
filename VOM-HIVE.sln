@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOM-HIVE.API", "VOM-HIVE.API\VOM-HIVE.API.csproj", "{B6B3A4E9-5972-4FEB-97F7-1BB8345EF9F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOM-HIVE.API", "VOM-HIVE.API\VOM-HIVE.API.csproj", "{B6B3A4E9-5972-4FEB-97F7-1BB8345EF9F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOM-HIVE.API.TESTS", "VOM-HIVE.API.TESTS\VOM-HIVE.API.TESTS.csproj", "{8EAC7501-04E1-43FC-BA84-D2CF8AE49072}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B6B3A4E9-5972-4FEB-97F7-1BB8345EF9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6B3A4E9-5972-4FEB-97F7-1BB8345EF9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6B3A4E9-5972-4FEB-97F7-1BB8345EF9F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EAC7501-04E1-43FC-BA84-D2CF8AE49072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAC7501-04E1-43FC-BA84-D2CF8AE49072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAC7501-04E1-43FC-BA84-D2CF8AE49072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAC7501-04E1-43FC-BA84-D2CF8AE49072}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
