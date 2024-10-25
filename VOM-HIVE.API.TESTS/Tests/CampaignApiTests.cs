@@ -366,6 +366,7 @@ namespace VOM_HIVE.API.TESTS.Tests
 
             var editedCampaign = new CampaignModel
             {
+                id_campaign = campaign.id_campaign,
                 nm_campaign = "Arroz, feijão, batata o que falta?",
                 target = "adulto",
                 dt_register = DateTime.Now.Date,
@@ -384,20 +385,11 @@ namespace VOM_HIVE.API.TESTS.Tests
         public async Task EditCampaign_ReturnsNotFound_WhenProductDoenstExist()
         {
             // Arrange
-            var campaign = new CampaignModel
-            {
-                nm_campaign = "Cola ni mim, cola em nóis",
-                target = "adultos",
-                dt_register = DateTime.Now.Date,
-                details = "alimentos",
-                status = "ativo",
-            };
-
-            _context.Campaign.Add(campaign);
-            _context.SaveChanges();
+            int id_campaign = 85287890;
 
             var editedCampaign = new CampaignModel
             {
+                id_campaign = id_campaign,
                 nm_campaign = "Arroz, feijão, batata o que falta?",
                 target = "adulto",
                 dt_register = DateTime.Now.Date,
@@ -406,7 +398,7 @@ namespace VOM_HIVE.API.TESTS.Tests
             };
 
             // Act
-            var response = await _client.PutAsJsonAsync($"/api/Campaign/EditCampaign/{campaign.id_campaign}", editedCampaign);
+            var response = await _client.PutAsJsonAsync($"/api/Campaign/EditCampaign/{id_campaign}", editedCampaign);
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -439,20 +431,10 @@ namespace VOM_HIVE.API.TESTS.Tests
         public async Task DeleteCampaign_ReturnsNotFound_WhenProductDoenstExist()
         {
             // Arrange
-            var campaign = new CampaignModel
-            {
-                nm_campaign = "Cola ni mim, cola em nóis",
-                target = "adultos",
-                dt_register = DateTime.Now.Date,
-                details = "alimentos",
-                status = "ativo",
-            };
-
-            _context.Campaign.Add(campaign);
-            _context.SaveChanges();
+            int id_campaign = 6699;
 
             // Act
-            var response = await _client.DeleteAsync($"/api/Campaign/DeleteCampaign/{campaign.id_campaign}");
+            var response = await _client.DeleteAsync($"/api/Campaign/DeleteCampaign/{id_campaign}");
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
