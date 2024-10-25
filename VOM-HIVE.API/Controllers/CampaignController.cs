@@ -67,17 +67,11 @@ namespace VOM_HIVE.API.Controllers
 
             var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
 
-            if (campaign == null)
+            if (campaign.Dados == null)
             {
-                return NotFound();
+                return NotFound("Campanha não encontrada");
             }
-            //var campaign = await _context.Campaign.Add(campaignEditDto);
 
-            //_context.Entry(campaignEditDto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            //await _context.SaveChangesAsync();
-            //return Ok(campaignEditDto);
-
-            //var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
             return NoContent();
         }
 
@@ -86,7 +80,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var campaign = await _campaignInterface.DeleteCampaign(id_campaign);
 
-            if (campaign == null)
+            if (campaign.Dados == null)
             {
                 return NotFound();
             }

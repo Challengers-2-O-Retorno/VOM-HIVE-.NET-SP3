@@ -58,7 +58,7 @@ namespace VOM_HIVE.API.Controllers
 
             var user = await _profileUserInterface.EditProfileUser(profileUserEditDto);
 
-            if(user == null)
+            if(user.Dados == null)
             {
                 return NotFound();
             }
@@ -71,7 +71,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var user = await _profileUserInterface.DeleteProfileUser(id_user);
 
-            if (user == null)
+            if (user.Dados == null)
             {
                 return NotFound();
             }
