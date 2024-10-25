@@ -154,29 +154,128 @@ namespace VOM_HIVE.API.TESTS.Tests
             Assert.Null(json.Dados);
         }
 
-        // TO-DO Corrigir interface de service para devolver uma instância e não uma lista (Create, Edit e Delete)
-        //[Fact]
-        //public async Task CreateProduct_ReturnsCreatedProduct()
-        //{
-        //    // Arrange
-        //    var product = new ProductModel
-        //    {
-        //        nm_product = "BotaCola",
-        //        category_product = "Bebida"
-        //    };
+        [Fact]
+        public async Task CreateProduct_ReturnsOKProductAndProduct()
+        {
+            // Arrange
+            var product = new ProductModel
+            {
+                nm_product = "BotaCola",
+                category_product = "Bebida"
+            };
 
-        //    // Act
-        //    var response = await _client.PostAsJsonAsync("/api/Product/CreateProduct", product);
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Product/CreateProduct", product);
 
-        //    // Assert
-        //    response.EnsureSuccessStatusCode();
-        //    Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        //    var jsonProduct = await response.Content.ReadFromJsonAsync<ResponseModel<ProductModel>>();
+            var jsonProduct = await response.Content.ReadFromJsonAsync<ResponseModel<ProductModel>>();
 
 
-        //    Assert.Equal(product.nm_product, jsonProduct.Dados.nm_product);
-        //    //Assert.Equal(product.category_product, product.category_product);
-        //}
+            Assert.Equal(product.nm_product, jsonProduct.Dados.nm_product);
+            //Assert.Equal(product.category_product, product.category_product);
+        }
+
+        [Fact]
+        public async Task CreateProduct_ReturnNull_WhenDoenstCreateProduct()
+        {
+            //Arrange
+            var product = new ProductModel
+            {
+                category_product = "Refrigerante"
+            };
+
+            //Act
+            var response = await _client.PostAsJsonAsync("/api/Product/CreateProduct", product);
+
+            //Asserts
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<ProductModel>>();
+
+            Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task EditProduct_ReturnsNoContent_WhenProductExist()
+        {
+            //Arrange
+            var product = new ProductModel
+            {
+                nm_product = "Coca Cola",
+                category_product = "Refirgerante"
+            };
+
+            _context.Product.Add(product);
+            _context.SaveChanges();
+
+            var editedProduct = new ProductModel
+            {
+                id_product = product.id_product,
+                nm_product = "Guaraná",
+                category_product = "Refrigerante"
+            };
+
+            //Act
+            var response = await _client.PutAsJsonAsync($"/api/Product/EditProduct/{product.id_product}", editedProduct);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task EditProduct_ReturnsNotFound_WhenProductDoenstExist()
+        {
+            //Arrange
+            int id_product = 12345;
+
+            var editedProduct = new ProductModel
+            {
+                id_product = id_product,
+                nm_product = "Arroz",
+                category_product = "Alimento"
+            };
+
+            //Act
+            var response = await _client.PutAsJsonAsync($"/api/Product/EditProduct/{id_product}", editedProduct);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteProduct_ReturnsNoContent_WhenProductExist()
+        {
+            //Arrange
+            var product = new ProductModel
+            {
+                nm_product = "Coca Cola",
+                category_product = "Refrigerante"
+            };
+
+            _context.Product.Add(product);
+            _context.SaveChanges();
+
+            //Act
+            var response = await _client.DeleteAsync($"/api/Product/DeleteProduct/{product.id_product}");
+
+            //Assert
+            Assert.Equal(HttpStatusCode.NoContent , response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteProduct_ReturnsNotFound_WhenProductDoenstExist()
+        {
+            //Arrange
+            int id_product = 1234;
+
+            //Act
+            var response = await _client.DeleteAsync($"/api/Product/DeleteProduct/{id_product}");
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
     }
 }
