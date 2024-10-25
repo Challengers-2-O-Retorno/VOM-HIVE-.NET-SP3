@@ -46,17 +46,33 @@ namespace VOM_HIVE.API.Controllers
             return Ok(produtos);
         }
 
-        [HttpPut("EditProduct")]
-        public async Task<ActionResult<ResponseModel<ProductModel>>> EditProduct(ProductEditDto productEditDto)
+        [HttpPut("EditProduct/{id_product}")]
+        public async Task<ActionResult<ResponseModel<ProductModel>>> EditProduct(int id_product, [FromBody] ProductEditDto productEditDto)
         {
+            if(id_product != productEditDto.id_product)
+            {
+                return BadRequest("Id na URL e no corpo não coincidem");
+            }
+
             var product = await _productInterface.EditProduct(productEditDto);
+
+            if (product == null) 
+            { 
+                return NotFound();
+            }
             return Ok(product);
         }
 
-        [HttpDelete("DeleteProduct")]
+        [HttpDelete("DeleteProduct/{id_product}")]
         public async Task<ActionResult<ResponseModel<ProductModel>>> DeleteProduct(int id_product)
         {
             var product = await _productInterface.DeleteProduct(id_product);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
             return Ok(product);
         }
     }
