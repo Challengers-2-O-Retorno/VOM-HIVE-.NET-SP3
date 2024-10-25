@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sp2.Models;
+using System.Net;
 using System.Net.Http.Json;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.Models;
@@ -200,6 +201,29 @@ namespace VOM_HIVE.API.TESTS.Tests
             var json = await response.Content.ReadFromJsonAsync<ResponseModel<CompanyModel>>();
 
             Assert.Null(json.Dados);
+        }
+
+        [Fact]
+        public async Task CreateCompany_ReturnsTrue_WhenCreated()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Company/CreateCompany", company);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<List<CompanyModel>>>();
+            Assert.Equal(json.Status, true);
         }
     }
 }
