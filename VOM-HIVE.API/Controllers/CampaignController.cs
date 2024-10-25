@@ -78,7 +78,7 @@ namespace VOM_HIVE.API.Controllers
             //return Ok(campaignEditDto);
 
             //var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
-            return Ok(campaign);
+            return NoContent();
         }
 
         [HttpDelete("DeleteCampaign/{id_campaign}")]
@@ -92,7 +92,7 @@ namespace VOM_HIVE.API.Controllers
             }
 
             //var campaign = await _campaignInterface.DeleteCampaign(id_campaign);
-            return Ok(campaign);
+            return NoContent();
         }
     }
 }

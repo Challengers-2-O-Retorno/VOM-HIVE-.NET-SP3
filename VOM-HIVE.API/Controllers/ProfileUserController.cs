@@ -63,7 +63,7 @@ namespace VOM_HIVE.API.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return NoContent();
         }
 
         [HttpDelete("DeleteProfileUser/{id_user}")]
@@ -75,7 +75,7 @@ namespace VOM_HIVE.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(user);
+            return NoContent();
         }
     }
 }

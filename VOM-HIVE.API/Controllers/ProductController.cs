@@ -60,7 +60,7 @@ namespace VOM_HIVE.API.Controllers
             { 
                 return NotFound();
             }
-            return Ok(product);
+            return NoContent();
         }
 
         [HttpDelete("DeleteProduct/{id_product}")]
@@ -73,7 +73,7 @@ namespace VOM_HIVE.API.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            return NoContent();
         }
     }
 }
