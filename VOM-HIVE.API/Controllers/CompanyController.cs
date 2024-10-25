@@ -63,7 +63,7 @@ namespace VOM_HIVE.API.Controllers
 
             var company = await _companyInterface.EditCompany(companyEditDto);
 
-            if (company == null) 
+            if (company.Dados == null) 
             {
                 return NotFound();
             }
@@ -76,7 +76,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var company = await _companyInterface.DeleteCompany(id_company);
 
-            if(company == null)
+            if(company.Dados == null)
             {
                 return NotFound();
             }

@@ -56,7 +56,7 @@ namespace VOM_HIVE.API.Controllers
 
             var product = await _productInterface.EditProduct(productEditDto);
 
-            if (product == null) 
+            if (product.Dados == null) 
             { 
                 return NotFound();
             }
@@ -68,7 +68,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var product = await _productInterface.DeleteProduct(id_product);
 
-            if(product == null)
+            if(product.Dados == null)
             {
                 return NotFound();
             }
