@@ -34,11 +34,6 @@ namespace VOM_HIVE.API.TESTS.Tests
                 nm_product = "produtoTeste1",
                 category_product = "categoriaProduto1"
             });
-            _context.Product.Add(new ProductModel
-            {
-                nm_product = "produtoTeste2",
-                category_product = "categoriaProduto2"
-            });
 
             _context.SaveChanges();
 
