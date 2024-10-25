@@ -352,6 +352,24 @@ namespace VOM_HIVE.API.TESTS.Tests
         public async Task EditCampaign_ReturnsNoContent_WhenProductExist()
         {
             // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            var product = new ProductModel
+            {
+                nm_product = "BotaCola",
+                category_product = "Bebida"
+            };
+
+            _context.Company.Add(company);
+            _context.Product.Add(product);
+            _context.SaveChanges();
+
             var campaign = new CampaignModel
             {
                 nm_campaign = "Cola ni mim, cola em nóis",
@@ -359,6 +377,8 @@ namespace VOM_HIVE.API.TESTS.Tests
                 dt_register = DateTime.Now.Date,
                 details = "alimentos",
                 status = "ativo",
+                id_product = product.id_product,
+                id_company = company.id_company
             };
 
             _context.Campaign.Add(campaign);
@@ -372,6 +392,8 @@ namespace VOM_HIVE.API.TESTS.Tests
                 dt_register = DateTime.Now.Date,
                 details = "adulto",
                 status = "adulto",
+                id_product = product.id_product,
+                id_company = company.id_company
             };
 
             // Act
