@@ -244,7 +244,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task GetCampaignsByIdProduct_ReturnEmptyArray_WhenDoenstExist()
+        public async Task GetCampaignsByIdProduct_ReturnEmptyArray_WhenProductDoenstExist()
         {
             // Arrange
             int id_product = 6699;
@@ -260,7 +260,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task CreateCampaign_ReturnCreatedCampaign()
+        public async Task CreateCampaign_ReturnOKAndCampaign()
         {
             // Arrange
             var company = new CompanyModel
@@ -321,7 +321,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task CreateCampaign_ReturnNull_WhenDoenstCreate()
+        public async Task CreateCampaign_ReturnNull_WhenDoenstCreateCampaign()
         {
             // Arrange
             var campaign = new CampaignModel
@@ -349,7 +349,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task EditCampaign_ReturnsNoContent_WhenProductExist()
+        public async Task EditCampaign_ReturnsNoContent_WhenCampaignExist()
         {
             // Arrange
             var company = new CompanyModel
@@ -404,7 +404,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task EditCampaign_ReturnsNotFound_WhenProductDoenstExist()
+        public async Task EditCampaign_ReturnsNotFound_WhenCampaignDoenstExist()
         {
             // Arrange
             int id_campaign = 85287890;
@@ -427,7 +427,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task DeleteCampaign_ReturnsNoContent_WhenProductExist()
+        public async Task DeleteCampaign_ReturnsNoContent_WhenCampaignExist()
         {
             // Arrange
             var campaign = new CampaignModel
@@ -450,7 +450,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task DeleteCampaign_ReturnsNotFound_WhenProductDoenstExist()
+        public async Task DeleteCampaign_ReturnsNotFound_WhenCampaignDoenstExist()
         {
             // Arrange
             int id_campaign = 6699;

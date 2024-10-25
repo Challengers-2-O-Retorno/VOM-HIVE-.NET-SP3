@@ -134,7 +134,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task GetCompanyByIdCampaign_ReturnNull_WhenCompanyDoenstExist()
+        public async Task GetCompanyByIdCampaign_ReturnNull_WhenCampaignDoenstExist()
         {
             // Arrange
             int id_campaign = 6699;
@@ -188,7 +188,7 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task GetCompanyByIdProfileUser_ReturnNull_WhenDoenstExist()
+        public async Task GetCompanyByIdProfileUser_ReturnNull_WhenProfileUserDoenstExist()
         {
             // Arrange
             int id_user = 6699;
@@ -204,7 +204,109 @@ namespace VOM_HIVE.API.TESTS.Tests
         }
 
         [Fact]
-        public async Task CreateCompany_ReturnsTrue_WhenCreated()
+        public async Task CreateCompany_ReturnsOKAndCompany()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/Company/CreateCompany", company);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var json = await response.Content.ReadFromJsonAsync<ResponseModel<CompanyModel>>();
+
+            Assert.Equal(company.nm_company, json.Dados.nm_company);
+            Assert.Equal(company.cnpj, json.Dados.cnpj);
+            Assert.Equal(company.email, json.Dados.email);
+            Assert.Equal(company.dt_register.ToString("yyyy-MM-dd"), json.Dados.dt_register.ToString("yyyy-MM-dd"));
+        }
+
+        [Fact]
+        public async Task EditCompany_ReturnsNoContent_WhenCompanyExist()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            var editedCompany = new CompanyModel
+            {
+                id_company = company.id_company,
+                nm_company = "Lethal Company",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"/api/Company/EditCompany/{company.id_company}", editedCompany);
+
+            // Assets
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task EditCompany_ReturnsNotFound_WhenCompanyDoenstExist()
+        {
+            // Arrange
+            int id_company = 6699;
+
+            var editedCompany = new CompanyModel
+            {
+                id_company = id_company,
+                nm_company = "Lethal Company",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now.Date
+            };
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"/api/Company/EditCompany/{id_company}", editedCompany);
+
+            // Assets
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteCompany_ReturnsNoContent_WhenCompanyExist()
+        {
+            // Arrange
+            var company = new CompanyModel
+            {
+                nm_company = "BotaCola Inc.",
+                cnpj = "12345678910",
+                email = "jaun@company.com.br",
+                dt_register = DateTime.Now
+            };
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            // Act
+            var response = await _client.DeleteAsync($"/api/Company/DeleteCompany/{company.id_company}");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteCompany_ReturnsNoContent_WhenCompanyDoenstExist()
         {
             // Arrange
             var company = new CompanyModel
@@ -216,14 +318,10 @@ namespace VOM_HIVE.API.TESTS.Tests
             };
 
             // Act
-            var response = await _client.PostAsJsonAsync("/api/Company/CreateCompany", company);
+            var response = await _client.DeleteAsync($"/api/Company/DeleteCompany/{company.id_company}");
 
             // Assert
-            response.EnsureSuccessStatusCode();
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-
-            var json = await response.Content.ReadFromJsonAsync<ResponseModel<List<CompanyModel>>>();
-            Assert.Equal(json.Status, true);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }
