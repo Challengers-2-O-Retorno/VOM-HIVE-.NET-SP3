@@ -68,7 +68,7 @@ namespace VOM_HIVE.API.Controllers
                 return NotFound();
             }
 
-            return Ok(company);
+            return NoContent();
         }
 
         [HttpDelete("DeleteCompany/{id_company}")]
@@ -81,7 +81,7 @@ namespace VOM_HIVE.API.Controllers
                 return NotFound();
             }
 
-            return Ok(company);
+            return NoContent();
         }
     }
 }
