@@ -67,9 +67,9 @@ namespace VOM_HIVE.API.Services.Product
             }
         }
 
-        public async Task<ResponseModel<List<ProductModel>>> CreateProduct(ProductCreateDto productCreateDto)
+        public async Task<ResponseModel<ProductModel>> CreateProduct(ProductCreateDto productCreateDto)
         {
-            ResponseModel<List<ProductModel>> resposta = new ResponseModel<List<ProductModel>>();
+            ResponseModel<ProductModel> resposta = new ResponseModel<ProductModel>();
             try
             {
                 var product = new ProductModel()
@@ -81,7 +81,8 @@ namespace VOM_HIVE.API.Services.Product
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Product.ToListAsync();
+                resposta.Dados = product;
+
                 resposta.Mensagem = "Produto criado com sucesso!";
 
                 return resposta;
@@ -95,9 +96,9 @@ namespace VOM_HIVE.API.Services.Product
             }
         }
 
-        public async Task<ResponseModel<List<ProductModel>>> DeleteProduct(int id_product)
+        public async Task<ResponseModel<ProductModel>> DeleteProduct(int id_product)
         {
-            ResponseModel<List<ProductModel>> resposta = new ResponseModel<List<ProductModel>>();
+            ResponseModel<ProductModel> resposta = new ResponseModel<ProductModel>();
 
             try
             {
@@ -112,7 +113,7 @@ namespace VOM_HIVE.API.Services.Product
                 _context.Remove(product);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Product.ToListAsync();
+                resposta.Dados = product;
                 resposta.Mensagem = "Produto removido com sucesso!";
 
                 return resposta;
@@ -125,29 +126,29 @@ namespace VOM_HIVE.API.Services.Product
             }
         }
 
-        public async Task<ResponseModel<List<ProductModel>>> EditProduct(ProductEditDto productEditDto)
+        public async Task<ResponseModel<ProductModel>> EditProduct(ProductEditDto productEditDto)
         {
-            ResponseModel<List<ProductModel>> resposta = new ResponseModel<List<ProductModel>>();
+            ResponseModel<ProductModel> resposta = new ResponseModel<ProductModel>();
 
             try
             {
-                var produto = await _context.Product
+                var product = await _context.Product
                     .FirstOrDefaultAsync(
                     productbanco => productbanco.id_product == productEditDto.id_product
                     );
 
-                if (produto == null)
+                if (product == null)
                 {
                     resposta.Mensagem = "Nenhum produto localizado";
                     return resposta;
                 }
-                produto.nm_product = productEditDto.nm_product;
-                produto.category_product = productEditDto.category_product;
+                product.nm_product = productEditDto.nm_product;
+                product.category_product = productEditDto.category_product;
 
-                _context.Update(produto);
+                _context.Update(product);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Product.ToListAsync();
+                resposta.Dados = product;
                 resposta.Mensagem = "Produto editado com sucesso!";
 
                 return resposta;

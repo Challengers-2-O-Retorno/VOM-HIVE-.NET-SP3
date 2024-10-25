@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
+using System;
 using VOM_HIVE.API.DTO.ProfileUser;
 using VOM_HIVE.API.Models;
 using VOM_HIVE.API.Services.Company;
@@ -47,18 +48,34 @@ namespace VOM_HIVE.API.Controllers
             return Ok(user);
         }
 
-        [HttpPut("EditProfileUser")]
-        public async Task<ActionResult<ResponseModel<List<ProfileuserModel>>>> EditProfileUser(ProfileUserEditDto profileUserEditDto)
+        [HttpPut("EditProfileUser/{id_user}")]
+        public async Task<ActionResult<ResponseModel<List<ProfileuserModel>>>> EditProfileUser(int id_user, [FromBody] ProfileUserEditDto profileUserEditDto)
         {
+            if(id_user != profileUserEditDto.id_user)
+            {
+                return BadRequest("Id na URL e no corpo não coincidem");
+            }
+
             var user = await _profileUserInterface.EditProfileUser(profileUserEditDto);
-            return Ok(user);
+
+            if(user.Dados == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
-        [HttpDelete("DeleteProfileUser")]
+        [HttpDelete("DeleteProfileUser/{id_user}")]
         public async Task<ActionResult<ResponseModel<List<ProfileuserModel>>>> EditProfileUser(int id_user)
         {
             var user = await _profileUserInterface.DeleteProfileUser(id_user);
-            return Ok(user);
+
+            if (user.Dados == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }
