@@ -57,23 +57,41 @@ namespace VOM_HIVE.API.Controllers
             return Ok(campaign);
         }
 
-        [HttpPut("EditCampaign")]
-        public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> EditCampaign(CampaignEditDto campaignEditDto)
+        [HttpPut("EditCampaign/{id_campaign}")]
+        public async Task<ActionResult<ResponseModel<CampaignModel>>> EditCampaign(int id_campaign, [FromBody] CampaignEditDto campaignEditDto)
         {
+            if (id_campaign != campaignEditDto.id_campaign)
+            {
+                return BadRequest("ID na URL e no corpo não coincidem");
+            }
+
+            var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
+
+            if (campaign == null)
+            {
+                return NotFound();
+            }
             //var campaign = await _context.Campaign.Add(campaignEditDto);
 
             //_context.Entry(campaignEditDto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             //await _context.SaveChangesAsync();
             //return Ok(campaignEditDto);
 
-            var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
+            //var campaign = await _campaignInterface.EditCampaign(campaignEditDto);
             return Ok(campaign);
         }
 
-        [HttpDelete("DeleteCampaign")]
+        [HttpDelete("DeleteCampaign/{id_campaign}")]
         public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> DeleteCampaign(int id_campaign)
         {
             var campaign = await _campaignInterface.DeleteCampaign(id_campaign);
+
+            if (campaign == null)
+            {
+                return NotFound();
+            }
+
+            //var campaign = await _campaignInterface.DeleteCampaign(id_campaign);
             return Ok(campaign);
         }
     }
