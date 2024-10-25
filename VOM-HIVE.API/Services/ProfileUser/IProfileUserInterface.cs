@@ -9,8 +9,8 @@ namespace VOM_HIVE.API.Services.ProfileUser
         Task<ResponseModel<List<ProfileuserModel>>> ListProfileUser();
         Task<ResponseModel<ProfileuserModel>> FindProfileUserById(int id_user);
         Task<ResponseModel<List<ProfileuserModel>>> FindProfileUserByIdCompany(int id_company);
-        Task<ResponseModel<List<ProfileuserModel>>> CreateProfileUser(ProfileUserCreateDto ProfileUserCreateDto);
-        Task<ResponseModel<List<ProfileuserModel>>> EditProfileUser(ProfileUserEditDto ProfileUserEditDto);
-        Task<ResponseModel<List<ProfileuserModel>>> DeleteProfileUser(int id_user);
+        Task<ResponseModel<ProfileuserModel>> CreateProfileUser(ProfileUserCreateDto ProfileUserCreateDto);
+        Task<ResponseModel<ProfileuserModel>> EditProfileUser(ProfileUserEditDto ProfileUserEditDto);
+        Task<ResponseModel<ProfileuserModel>> DeleteProfileUser(int id_user);
     }
 }

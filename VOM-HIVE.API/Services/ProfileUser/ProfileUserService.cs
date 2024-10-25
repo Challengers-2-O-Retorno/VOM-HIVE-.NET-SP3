@@ -92,9 +92,9 @@ namespace VOM_HIVE.API.Services.ProfileUser
             }
         }
 
-        public async Task<ResponseModel<List<ProfileuserModel>>> CreateProfileUser(ProfileUserCreateDto ProfileUserCreateDto)
+        public async Task<ResponseModel<ProfileuserModel>> CreateProfileUser(ProfileUserCreateDto ProfileUserCreateDto)
         {
-            ResponseModel<List<ProfileuserModel>> resposta = new ResponseModel<List<ProfileuserModel>>();
+            ResponseModel<ProfileuserModel> resposta = new ResponseModel<ProfileuserModel>();
 
             try
             {
@@ -119,7 +119,7 @@ namespace VOM_HIVE.API.Services.ProfileUser
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Profile_user.Include(co => co.Company).ToListAsync();
+                resposta.Dados = user;
                 resposta.Mensagem = "Usuário criado com sucesso!";
 
                 return resposta;
@@ -132,9 +132,9 @@ namespace VOM_HIVE.API.Services.ProfileUser
             }
         }
 
-        public async Task<ResponseModel<List<ProfileuserModel>>> DeleteProfileUser(int id_user)
+        public async Task<ResponseModel<ProfileuserModel>> DeleteProfileUser(int id_user)
         {
-            ResponseModel<List<ProfileuserModel>> resposta = new ResponseModel<List<ProfileuserModel>>();
+            ResponseModel<ProfileuserModel> resposta = new ResponseModel<ProfileuserModel>();
             try
             {
                 var user = await _context.Profile_user.FirstOrDefaultAsync(userDb => userDb.id_user == id_user);
@@ -148,7 +148,7 @@ namespace VOM_HIVE.API.Services.ProfileUser
                 _context.Remove(user);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Profile_user.ToListAsync();
+                resposta.Dados = user;
                 resposta.Mensagem = "Usuário removido com sucesso!";
 
                 return resposta;
@@ -161,9 +161,9 @@ namespace VOM_HIVE.API.Services.ProfileUser
             }
         }
 
-        public async Task<ResponseModel<List<ProfileuserModel>>> EditProfileUser(ProfileUserEditDto ProfileUserEditDto)
+        public async Task<ResponseModel<ProfileuserModel>> EditProfileUser(ProfileUserEditDto ProfileUserEditDto)
         {
-            ResponseModel<List<ProfileuserModel>> resposta = new ResponseModel<List<ProfileuserModel>>();
+            ResponseModel<ProfileuserModel> resposta = new ResponseModel<ProfileuserModel>();
             try
             {
                 var user = await _context.Profile_user
@@ -194,7 +194,8 @@ namespace VOM_HIVE.API.Services.ProfileUser
                 _context.Update(user);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Profile_user.ToListAsync();
+                resposta.Dados = user;
+                resposta.Mensagem = "Usuário editado com sucesso!";
                 return resposta;
 
             }

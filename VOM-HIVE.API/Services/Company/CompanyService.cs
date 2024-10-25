@@ -117,9 +117,9 @@ namespace VOM_HIVE.API.Services.Company
             }
         }
 
-        public async Task<ResponseModel<List<CompanyModel>>> CreateCompany(CompanyCreateDto CompanyCreateDto)
+        public async Task<ResponseModel<CompanyModel>> CreateCompany(CompanyCreateDto CompanyCreateDto)
         {
-            ResponseModel<List<CompanyModel>> resposta = new ResponseModel<List<CompanyModel>>();
+            ResponseModel<CompanyModel> resposta = new ResponseModel<CompanyModel>();
 
             try
             {
@@ -134,7 +134,7 @@ namespace VOM_HIVE.API.Services.Company
                 _context.Add(company);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Company.ToListAsync();
+                resposta.Dados = company;
                 resposta.Mensagem = "Empresa criada com sucesso!";
                 return resposta;
                 
@@ -147,9 +147,9 @@ namespace VOM_HIVE.API.Services.Company
             }
         }
 
-        public async Task<ResponseModel<List<CompanyModel>>> EditCompany(CompanyEditDto CompanyEditDto)
+        public async Task<ResponseModel<CompanyModel>> EditCompany(CompanyEditDto CompanyEditDto)
         {
-        ResponseModel<List<CompanyModel>> resposta = new ResponseModel<List<CompanyModel>>();
+        ResponseModel<CompanyModel> resposta = new ResponseModel<CompanyModel>();
             try
             {
                 var company = await _context.Company
@@ -170,7 +170,7 @@ namespace VOM_HIVE.API.Services.Company
                 _context.Update(company);
                 await _context.SaveChangesAsync();
                 
-                resposta.Dados = await _context.Company.ToListAsync();
+                resposta.Dados = company;
                 resposta.Mensagem = "Empresa editada com sucesso!";
                 return resposta;
             }
@@ -182,9 +182,9 @@ namespace VOM_HIVE.API.Services.Company
             }
         }
 
-        public async Task<ResponseModel<List<CompanyModel>>> DeleteCompany(int id_company)
+        public async Task<ResponseModel<CompanyModel>> DeleteCompany(int id_company)
         {
-            ResponseModel<List<CompanyModel>> resposta = new ResponseModel<List<CompanyModel>>();
+            ResponseModel<CompanyModel> resposta = new ResponseModel<CompanyModel>();
             try
             {
                 var company = await _context.Company.FirstOrDefaultAsync(companyDb => companyDb.id_company == id_company);
@@ -198,7 +198,7 @@ namespace VOM_HIVE.API.Services.Company
                 _context.Remove(company);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Company.ToListAsync();
+                resposta.Dados = company;
                 resposta.Mensagem = "Empresa removida com sucesso!";
 
                 return resposta;

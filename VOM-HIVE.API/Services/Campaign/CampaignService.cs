@@ -187,9 +187,9 @@ namespace VOM_HIVE.API.Services.Campaign
             }
         }
 
-        public async Task<ResponseModel<List<CampaignModel>>> DeleteCampaign(int id_campaign)
+        public async Task<ResponseModel<CampaignModel>> DeleteCampaign(int id_campaign)
         {
-            ResponseModel<List<CampaignModel>> resposta = new ResponseModel<List<CampaignModel>>();
+            ResponseModel<CampaignModel> resposta = new ResponseModel<CampaignModel>();
             try
             {
                 var campaign = await _context.Campaign
@@ -204,6 +204,7 @@ namespace VOM_HIVE.API.Services.Campaign
                 _context.Remove(campaign);
                 await _context.SaveChangesAsync();
 
+                resposta.Dados = campaign;
                 resposta.Mensagem = "Campanha removida com sucesso!";
 
                 return resposta;

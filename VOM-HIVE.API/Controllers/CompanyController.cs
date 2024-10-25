@@ -53,18 +53,35 @@ namespace VOM_HIVE.API.Controllers
             return Ok(company);
         }
 
-        [HttpPut("EditCompany")]
-        public async Task<ActionResult<ResponseModel<ProductModel>>> EditCompany(CompanyEditDto companyEditDto)
+        [HttpPut("EditCompany/{id_company}")]
+        public async Task<ActionResult<ResponseModel<ProductModel>>> EditCompany(int id_company, [FromBody] CompanyEditDto companyEditDto)
         {
+            if (id_company != companyEditDto.id_company)
+            {
+                return BadRequest("Id na URL e no corpo não coincidem");
+            }
+
             var company = await _companyInterface.EditCompany(companyEditDto);
-            return Ok(company);
+
+            if (company == null) 
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
-        [HttpDelete("DeleteCompany")]
+        [HttpDelete("DeleteCompany/{id_company}")]
         public async Task<ActionResult<ResponseModel<ProductModel>>> EditCompany(int id_company)
         {
             var company = await _companyInterface.DeleteCompany(id_company);
-            return Ok(company);
+
+            if(company == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }
