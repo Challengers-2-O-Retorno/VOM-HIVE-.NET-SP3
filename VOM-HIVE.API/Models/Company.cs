@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Sp2.Models
@@ -26,7 +26,7 @@ namespace Sp2.Models
         [Required]
         [Column("dt_register")]
         public DateTime dt_register { get; set; }
-        
+
         [JsonIgnore]
         [InverseProperty("Company")]
         public ICollection<CampaignModel> Campaigns { get; set; }

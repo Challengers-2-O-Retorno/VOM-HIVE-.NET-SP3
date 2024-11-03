@@ -1,5 +1,4 @@
-﻿using Sp2.Models;
-using VOM_HIVE.API.DTO.ProfileUser.Vinculo;
+﻿using VOM_HIVE.API.DTO.ProfileUser.Vinculo;
 
 namespace VOM_HIVE.API.DTO.ProfileUser
 {

@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sp2.Models;
-using System.Security.Claims;
 using VOM_HIVE.API.Auth;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.Services.Configuration;

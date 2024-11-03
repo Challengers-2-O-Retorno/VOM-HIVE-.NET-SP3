@@ -1,6 +1,5 @@
 ﻿using Sp2.Models;
 using VOM_HIVE.API.DTO.Campaign;
-using VOM_HIVE.API.DTO.ProfileUser;
 using VOM_HIVE.API.Models;
 
 namespace VOM_HIVE.API.Services.Campaign

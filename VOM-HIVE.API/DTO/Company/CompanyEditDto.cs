@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace VOM_HIVE.API.DTO.Company
+﻿namespace VOM_HIVE.API.DTO.Company
 {
     public class CompanyEditDto
     {

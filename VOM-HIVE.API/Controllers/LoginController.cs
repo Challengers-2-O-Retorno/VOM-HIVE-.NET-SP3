@@ -45,7 +45,7 @@ namespace VOM_HIVE.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao gerar o token de autenticação");
             }
 
-            return Ok(new {Token = token});
+            return Ok(new { Token = token });
         }
 
         private async Task<bool> ValidateUser(string nm_user, string pass_user)

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sp2.Models;
-using System.Collections.Generic;
 using VOM_HIVE.API.Data;
-using VOM_HIVE.API.DTO.Company;
 using VOM_HIVE.API.DTO.ProfileUser;
 using VOM_HIVE.API.Models;
 
