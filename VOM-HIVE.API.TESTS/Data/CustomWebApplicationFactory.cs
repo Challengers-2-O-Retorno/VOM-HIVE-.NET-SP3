@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using VOM_HIVE.API.Data;
+using VOM_HIVE.API.Services.Configuration;
 
 namespace VOM_HIVE.API.TESTS.Data
 {
