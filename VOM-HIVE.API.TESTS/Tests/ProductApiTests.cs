@@ -8,6 +8,7 @@ using VOM_HIVE.API.TESTS.Data;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
+    [Collection("ApiTests")]
     public class ProductApiTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
