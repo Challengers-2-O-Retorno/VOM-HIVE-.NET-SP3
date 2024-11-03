@@ -11,6 +11,7 @@ using VOM_HIVE.API.TESTS.Data;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
+    [Collection("ApiTests")]
     public class ProductApiTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
@@ -23,6 +24,14 @@ namespace VOM_HIVE.API.TESTS.Tests
             var scope = factory.Services.CreateScope();
             _context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
+            var token = TokenStorage.Instance.Token;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new Exception("Token não está disponível. Certifique-se de que o teste de login foi executado corretamente.");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
         }
 
         [Fact]
