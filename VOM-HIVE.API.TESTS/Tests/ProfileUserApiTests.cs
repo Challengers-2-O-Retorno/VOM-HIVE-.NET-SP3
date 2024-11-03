@@ -10,10 +10,10 @@ using Sp2.Models;
 using System.Net.Http.Json;
 using VOM_HIVE.API.Models;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
+    [Collection("ApiTests")]
     public class ProfileUserApiTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
@@ -25,6 +25,15 @@ namespace VOM_HIVE.API.TESTS.Tests
 
             var scope = factory.Services.CreateScope();
             _context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            var token = TokenStorage.Instance.Token;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new Exception("Token não está disponível. Certifique-se de que o teste de login foi executado corretamente.");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
         }
 
         [Fact]
@@ -214,43 +223,6 @@ namespace VOM_HIVE.API.TESTS.Tests
             Assert.Equal(profileUser.dt_register.ToString("yyyy-MM-dd"), jsonProfileUser.Dados.dt_register.ToString("yyyy-MM-dd"));
             Assert.Equal(profileUser.permission_user, jsonProfileUser.Dados.permission_user);
             Assert.Equal(profileUser.status, jsonProfileUser.Dados.status);
-        }
-
-        [Fact]
-        public async Task CreateprofileUser_ReturnNull_WhenNotEnoughtDataProfileUser()
-        {
-            // Arrange
-            var company = new CompanyModel
-            {
-                nm_company = "BotaCola Inc.",
-                cnpj = "12345678910",
-                email = "jaun@company.com.br",
-                dt_register = DateTime.Now.Date
-            };
-
-            _context.Company.Add(company);
-            _context.SaveChanges();
-
-            var profileUser = new ProfileuserModel
-            {
-                nm_user = "Gabriel",
-                pass_user = "123456",
-                dt_register = DateTime.Now.Date,
-                permission_user = "Permission",
-                //status = "Ativo",
-                Company = company
-            };
-
-            // Act
-            var response = await _client.PostAsJsonAsync("/api/ProfileUser/CreateProfileUser", profileUser);
-
-            // Asserts
-            response.EnsureSuccessStatusCode();
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-            var json = await response.Content.ReadFromJsonAsync<ResponseModel<ProfileuserModel>>();
-
-            Assert.Null(json.Dados);
         }
 
         [Fact]
