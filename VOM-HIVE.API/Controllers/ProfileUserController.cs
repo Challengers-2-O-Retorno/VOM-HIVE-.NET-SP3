@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
-using System;
 using VOM_HIVE.API.Auth;
 using VOM_HIVE.API.DTO.ProfileUser;
 using VOM_HIVE.API.Models;
-using VOM_HIVE.API.Services.Company;
 using VOM_HIVE.API.Services.ProfileUser;
 
 namespace VOM_HIVE.API.Controllers
@@ -68,14 +65,14 @@ namespace VOM_HIVE.API.Controllers
         [EndpointDescription("Endpoint responsável por editar um usuário de acordo com o Id.")]
         public async Task<ActionResult<ResponseModel<List<ProfileuserModel>>>> EditProfileUser(int id_user, [FromBody] ProfileUserEditDto profileUserEditDto)
         {
-            if(id_user != profileUserEditDto.id_user)
+            if (id_user != profileUserEditDto.id_user)
             {
                 return BadRequest("Id na URL e no corpo não coincidem");
             }
 
             var user = await _profileUserInterface.EditProfileUser(profileUserEditDto);
 
-            if(user.Dados == null)
+            if (user.Dados == null)
             {
                 return NotFound();
             }

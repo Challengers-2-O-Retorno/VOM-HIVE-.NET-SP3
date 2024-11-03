@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.DTO.Campaign;
 using VOM_HIVE.API.Models;
 using VOM_HIVE.API.Services.Campaign;
-using VOM_HIVE.API.Services.ProfileUser;
 
 namespace VOM_HIVE.API.Controllers
 {

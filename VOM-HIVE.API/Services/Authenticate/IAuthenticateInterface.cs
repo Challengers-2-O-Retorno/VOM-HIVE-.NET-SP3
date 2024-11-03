@@ -1,6 +1,4 @@
-﻿using Sp2.Models;
-
-namespace VOM_HIVE.API.Auth
+﻿namespace VOM_HIVE.API.Auth
 {
     public interface IAuthenticateInterface
     {

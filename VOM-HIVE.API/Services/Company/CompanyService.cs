@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Sp2.Models;
-using System.Linq.Expressions;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.DTO.Company;
 using VOM_HIVE.API.Models;
@@ -27,7 +25,8 @@ namespace VOM_HIVE.API.Services.Company
                 resposta.Mensagem = "Todas as empresas foram coletadas!";
                 return resposta;
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
@@ -67,7 +66,7 @@ namespace VOM_HIVE.API.Services.Company
 
             try
             {
-                var  campaign = await _context.Campaign
+                var campaign = await _context.Campaign
                     .Include(co => co.Company)
                     .FirstOrDefaultAsync(companyDb => companyDb.id_campaign == id_campaign);
 
@@ -81,7 +80,8 @@ namespace VOM_HIVE.API.Services.Company
                 resposta.Mensagem = "Empresa localizada!";
                 return resposta;
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
@@ -109,7 +109,8 @@ namespace VOM_HIVE.API.Services.Company
                 resposta.Mensagem = "Empresa localizada!";
                 return resposta;
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
@@ -137,7 +138,7 @@ namespace VOM_HIVE.API.Services.Company
                 resposta.Dados = company;
                 resposta.Mensagem = "Empresa criada com sucesso!";
                 return resposta;
-                
+
             }
             catch (Exception ex)
             {
@@ -149,7 +150,7 @@ namespace VOM_HIVE.API.Services.Company
 
         public async Task<ResponseModel<CompanyModel>> EditCompany(CompanyEditDto CompanyEditDto)
         {
-        ResponseModel<CompanyModel> resposta = new ResponseModel<CompanyModel>();
+            ResponseModel<CompanyModel> resposta = new ResponseModel<CompanyModel>();
             try
             {
                 var company = await _context.Company
@@ -157,7 +158,7 @@ namespace VOM_HIVE.API.Services.Company
                     comapnyDb => comapnyDb.id_company == CompanyEditDto.id_company
                     );
 
-                if ( company == null)
+                if (company == null)
                 {
                     resposta.Mensagem = "Nenhuma empresa localizada!";
                     return resposta;
@@ -169,7 +170,7 @@ namespace VOM_HIVE.API.Services.Company
 
                 _context.Update(company);
                 await _context.SaveChangesAsync();
-                
+
                 resposta.Dados = company;
                 resposta.Mensagem = "Empresa editada com sucesso!";
                 return resposta;

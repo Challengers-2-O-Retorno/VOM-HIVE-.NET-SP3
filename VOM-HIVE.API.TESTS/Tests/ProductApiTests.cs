@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Sp2.Models;
 using System.Net;
 using System.Net.Http.Json;
 using VOM_HIVE.API.Data;
-using VOM_HIVE.API.DTO.Product;
 using VOM_HIVE.API.Models;
 using VOM_HIVE.API.TESTS.Data;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
-    [Collection("ApiTests")]
     public class ProductApiTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
@@ -272,7 +268,7 @@ namespace VOM_HIVE.API.TESTS.Tests
             var response = await _client.DeleteAsync($"/api/Product/DeleteProduct/{product.id_product}");
 
             //Assert
-            Assert.Equal(HttpStatusCode.NoContent , response.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [Fact]

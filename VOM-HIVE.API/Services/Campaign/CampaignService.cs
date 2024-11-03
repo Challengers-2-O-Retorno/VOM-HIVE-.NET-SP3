@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sp2.Models;
-using System;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.DTO.Campaign;
-using VOM_HIVE.API.DTO.Campaign.Vinculo;
-using VOM_HIVE.API.DTO.ProfileUser;
 using VOM_HIVE.API.Models;
 
 namespace VOM_HIVE.API.Services.Campaign
@@ -54,7 +51,8 @@ namespace VOM_HIVE.API.Services.Campaign
                 resposta.Mensagem = "Camapanha localizada!";
                 return resposta;
 
-            } catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
@@ -275,7 +273,7 @@ namespace VOM_HIVE.API.Services.Campaign
                 resposta.Dados = campaign;
                 return resposta;
             }
-            catch(DbUpdateException dbEx)
+            catch (DbUpdateException dbEx)
             {
                 resposta.Mensagem = "Erro ao atualizar o banco de dados: " + dbEx.Message;
                 resposta.Status = false;

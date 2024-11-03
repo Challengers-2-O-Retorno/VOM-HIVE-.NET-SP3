@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
 using VOM_HIVE.API.DTO.Product;
@@ -57,15 +56,15 @@ namespace VOM_HIVE.API.Controllers
         [EndpointDescription("Endpoint responsável por editar um produto de acordo com o Id.")]
         public async Task<ActionResult<ResponseModel<ProductModel>>> EditProduct(int id_product, [FromBody] ProductEditDto productEditDto)
         {
-            if(id_product != productEditDto.id_product)
+            if (id_product != productEditDto.id_product)
             {
                 return BadRequest("Id na URL e no corpo não coincidem");
             }
 
             var product = await _productInterface.EditProduct(productEditDto);
 
-            if (product.Dados == null) 
-            { 
+            if (product.Dados == null)
+            {
                 return NotFound();
             }
             return NoContent();
@@ -77,7 +76,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var product = await _productInterface.DeleteProduct(id_product);
 
-            if(product.Dados == null)
+            if (product.Dados == null)
             {
                 return NotFound();
             }

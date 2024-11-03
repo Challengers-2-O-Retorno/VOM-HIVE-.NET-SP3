@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
 using VOM_HIVE.API.DTO.Company;
@@ -72,7 +71,7 @@ namespace VOM_HIVE.API.Controllers
 
             var company = await _companyInterface.EditCompany(companyEditDto);
 
-            if (company.Dados == null) 
+            if (company.Dados == null)
             {
                 return NotFound();
             }
@@ -86,7 +85,7 @@ namespace VOM_HIVE.API.Controllers
         {
             var company = await _companyInterface.DeleteCompany(id_company);
 
-            if(company.Dados == null)
+            if (company.Dados == null)
             {
                 return NotFound();
             }

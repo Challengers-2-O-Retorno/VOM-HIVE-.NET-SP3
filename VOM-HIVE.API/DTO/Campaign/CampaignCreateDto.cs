@@ -1,7 +1,5 @@
-﻿using Sp2.Models;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using VOM_HIVE.API.DTO.Campaign.Vinculo;
 
 namespace VOM_HIVE.API.DTO.Campaign
 {
