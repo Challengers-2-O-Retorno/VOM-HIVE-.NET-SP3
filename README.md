@@ -81,7 +81,16 @@ A escolha pela arquitetura monolítica para o desenvolvimento da nossa API foi b
 Além disso, o conhecimento prévio da equipe com a tecnologia envolvida favoreceu essa abordagem, proporcionando mais agilidade no desenvolvimento. A arquitetura monolítica também simplifica a integração entre os componentes do sistema, o que é crucial em projetos com prazos apertados. Essa decisão nos permite entregar um produto funcional de maneira eficiente, sem a complexidade adicional que outras arquiteturas, como microsserviços, poderiam introduzir neste momento.
 
 # IA
-Neste projeto, a IA foi implementada usando o ML.NET para fornecer funcionalidades de aprendizado de máquina integradas à API .NET Core 8.0. O modelo de IA generativa foi projetado para gerar descrições de produtos com base em suas características, tornando o processo de criação de descrições mais rápido e consistente. Para isso, o modelo é treinado em dados de produtos existentes, aprendendo padrões e estilos de descrição.
+Neste projeto, a IA foi implementada utilizando o ML.NET para integrar funcionalidades de aprendizado de máquina à API desenvolvida em .NET Core 8.0. A aplicação conta com um modelo de IA generativa especificamente projetado para criar descrições de produtos com base em suas características, o que otimiza o processo de criação de conteúdo de maneira eficiente e padronizada.
+
+## Treinamento e Modelagem
+O modelo de IA foi treinado usando um conjunto de dados de descrições de produtos previamente catalogados, onde cada produto inclui atributos como categoria, características principais, palavras-chave e tom da descrição. Esse conjunto de dados foi cuidadosamente preparado para que o modelo pudesse aprender os padrões e nuances de cada tipo de produto, detectando características importantes que influenciam na descrição final. Foram utilizadas técnicas de processamento de linguagem natural (NLP) para que a IA compreendesse o contexto dos atributos fornecidos e produzisse descrições que fossem adequadas e bem estruturadas.
+
+## Funcionamento na API
+Na API, a funcionalidade de IA é acessível por meio de um endpoint específico. Ao chamar esse endpoint, o usuário fornece informações básicas sobre o produto, categoria e principais características. A IA então processa esses dados de entrada e gera uma descrição coerente e otimizada.
+
+## Benefícios e Valor Agregado
+A implementação da IA para geração de descrições de produtos automatiza uma tarefa antes manual e repetitiva, proporcionando consistência na linguagem e no tom das descrições. Além de economizar tempo, essa funcionalidade oferece inteligência contextual, adaptando a saída ao perfil do produto e ao público-alvo, e garantindo que a descrição gerada seja informativa e atrativa. Dessa forma, a IA agrega valor ao projeto, ampliando sua aplicabilidade e eficiência no gerenciamento de informações de produtos.
 
 Na API, a IA é chamada através de um endpoint específico, onde o usuário fornece detalhes básicos do produto e recebe uma descrição gerada automaticamente. Isso traz valor ao projeto ao automatizar uma tarefa repetitiva e agregar inteligência contextual na geração de conteúdo.
 
