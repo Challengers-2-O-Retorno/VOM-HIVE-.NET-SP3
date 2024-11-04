@@ -4,11 +4,14 @@ using System.Net;
 using System.Net.Http.Json;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.Models;
+using VOM_HIVE.API.TESTS.Collection;
 using VOM_HIVE.API.TESTS.Data;
+using Xunit.Priority;
 
 namespace VOM_HIVE.API.TESTS.Tests
 {
     [Collection("ApiTests")]
+    //[TestCaseOrderer("VOM_HIVE.API.TESTS.Collection.CustomOrderer", "VOM-HIVE.API.TESTS")]
     public class ALoginApiTest : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
