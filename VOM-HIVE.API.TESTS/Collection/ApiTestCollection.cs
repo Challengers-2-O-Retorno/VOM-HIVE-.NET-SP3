@@ -1,5 +1,8 @@
-﻿namespace VOM_HIVE.API.TESTS.Collection
+﻿using VOM_HIVE.API.TESTS.Data;
+
+namespace VOM_HIVE.API.TESTS.Collection
 {
     [CollectionDefinition("ApiTests")]
-    public class ApiTestCollection { }
+    [TestCaseOrderer("VOM_HIVE.API.TESTS.Collection.CustomOrderer", "VOM-HIVE.API.TESTS")]
+    public class ApiTestCollection : ICollectionFixture<CustomWebApplicationFactory<Program>> { }
 }

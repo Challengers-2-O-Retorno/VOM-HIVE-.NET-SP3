@@ -9,6 +9,7 @@ using VOM_HIVE.API.TESTS.Data;
 namespace VOM_HIVE.API.TESTS.Tests
 {
     [Collection("ApiTests")]
+    //[TestCaseOrderer("VOM_HIVE.API.TESTS.Collection.CustomOrderer", "VOM-HIVE.API.TESTS")]
     public class ALoginApiTest : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
