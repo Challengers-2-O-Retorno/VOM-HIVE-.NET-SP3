@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
+using VOM_HIVE.AI.Model;
 using VOM_HIVE.API.Auth;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.Dependecy;
@@ -10,6 +12,7 @@ using VOM_HIVE.API.Services.Campaign;
 using VOM_HIVE.API.Services.Company;
 using VOM_HIVE.API.Services.Configuration;
 using VOM_HIVE.API.Services.Product;
+using VOM_HIVE.API.Services.ProductDescription;
 using VOM_HIVE.API.Services.ProfileUser;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +56,10 @@ builder.Services.AddScoped<IProfileUserInterface, ProfileUserService>();
 builder.Services.AddScoped<ICampaignInterface, CampaignService>();
 
 builder.Services.AddScoped<IAuthenticateInterface, AuthenticateService>();
+
+//IA
+var trainingData = LoadTrainingData();
+builder.Services.AddSingleton(new ProductDescriptionService(trainingData));
 
 //Log de erro
 builder.Logging.AddConsole();
@@ -110,5 +117,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+IEnumerable<ProductDescriptionData> LoadTrainingData()
+{
+    var json = System.IO.File.ReadAllText("D:/FIAP/SP3.NET/VOM-HIVE/VOM-HIVE.AI/ProductDescriptionData.json");
+    var trainingData = JsonSerializer.Deserialize<IEnumerable<ProductDescriptionData>>(json);
+    return trainingData;
+}
 
 public partial class Program { }
