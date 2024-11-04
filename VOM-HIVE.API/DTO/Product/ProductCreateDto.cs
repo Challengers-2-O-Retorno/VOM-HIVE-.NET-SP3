@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace VOM_HIVE.API.DTO.Product
+﻿namespace VOM_HIVE.API.DTO.Product
 {
     public class ProductCreateDto
     {

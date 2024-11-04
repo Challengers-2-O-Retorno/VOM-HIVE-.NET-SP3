@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sp2.Models;
 using VOM_HIVE.API.Data;
 using VOM_HIVE.API.DTO.Campaign;
 using VOM_HIVE.API.Models;
 using VOM_HIVE.API.Services.Campaign;
-using VOM_HIVE.API.Services.ProfileUser;
 
 namespace VOM_HIVE.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CampaignController : ControllerBase
@@ -23,6 +23,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpGet("ListCamapaigns")]
+        [EndpointDescription("Endpoint responsável por listar todas as campanhas cadastradas.")]
         public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> ListCamapaigns()
         {
             var campaigns = await _campaignInterface.ListCampaign();
@@ -30,6 +31,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpGet("FindCampaignById/{id_campaign}")]
+        [EndpointDescription("Endpoint responsável para listar uma campanha específica de acordo com o Id.")]
         public async Task<ActionResult<ResponseModel<CampaignModel>>> ListCamapaigns(int id_campaign)
         {
             var campaign = await _campaignInterface.FindCampaignById(id_campaign);
@@ -37,6 +39,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpGet("FindCampaignByIdCompany/{id_campaign}")]
+        [EndpointDescription("Endpoint responsável para listar uma campanha específica de acordo com o Id de empresa.")]
         public async Task<ActionResult<ResponseModel<CampaignModel>>> FindProfileUserByIdCompany(int id_campaign)
         {
             var campaign = await _campaignInterface.FindCampaignByIdCompany(id_campaign);
@@ -44,13 +47,16 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpGet("FindCampaignByIdProduct/{id_product}")]
+        [EndpointDescription("Endpoint responsável para listar uma campanha específica de acordo com o Id de produto.")]
         public async Task<ActionResult<ResponseModel<CampaignModel>>> FindCampaignByIdProduct(int id_product)
         {
             var campaign = await _campaignInterface.FindCampaignByIdProduct(id_product);
             return Ok(campaign);
         }
 
+        [AllowAnonymous]
         [HttpPost("CreateCampaign")]
+        [EndpointDescription("Endpoint responsável para criação de uma nova campanha.")]
         public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> CreateCampaign(CampaignCreateDto campaignCreateDto)
         {
             var campaign = await _campaignInterface.CreateCampaign(campaignCreateDto);
@@ -58,6 +64,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpPut("EditCampaign/{id_campaign}")]
+        [EndpointDescription("Endpoint responsável para editar uma campanha de acordo com o Id.")]
         public async Task<ActionResult<ResponseModel<CampaignModel>>> EditCampaign(int id_campaign, [FromBody] CampaignEditDto campaignEditDto)
         {
             if (id_campaign != campaignEditDto.id_campaign)
@@ -76,6 +83,7 @@ namespace VOM_HIVE.API.Controllers
         }
 
         [HttpDelete("DeleteCampaign/{id_campaign}")]
+        [EndpointDescription("Endpoint responsável por deletar uma campanha de acordo com o Id.")]
         public async Task<ActionResult<ResponseModel<List<CampaignModel>>>> DeleteCampaign(int id_campaign)
         {
             var campaign = await _campaignInterface.DeleteCampaign(id_campaign);

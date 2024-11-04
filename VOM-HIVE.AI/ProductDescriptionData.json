@@ -1,0 +1,42 @@
+[
+  {
+    "Category": "Eletrônicos",
+    "Features": "Tela de 6.5 polegadas, Câmera de 12 MP, 128 GB de armazenamento, Processador Octa-Core, Bateria de 4000 mAh, Conectividade 5G, Sensor de impressão digital, Dual SIM",
+    "Description": "Smartphone com tela de 6.5 polegadas e câmera de 12 MP. Ideal para capturar fotos incríveis e armazenar todos os seus aplicativos. Equipado com um processador Octa-Core e uma bateria de 4000 mAh, proporciona desempenho rápido e autonomia de uso. Suporta conectividade 5G, possui sensor de impressão digital e aceita dois chips."
+  },
+  {
+    "Category": "Eletrodomésticos",
+    "Features": "Inox, 350 Litros, Classe A, Tecnologia Frost Free, Controle eletrônico de temperatura, Prateleiras ajustáveis, Compartimento para frutas e legumes",
+    "Description": "Geladeira Inox com 350 litros e classificação energética A. Mantém seus alimentos frescos por mais tempo, com tecnologia Frost Free que evita a formação de gelo. O controle eletrônico de temperatura permite ajustes precisos, e as prateleiras ajustáveis oferecem flexibilidade para armazenar itens de diferentes tamanhos. Conta ainda com um compartimento especial para frutas e legumes."
+  },
+  {
+    "Category": "Móveis",
+    "Features": "Madeira de lei, Acabamento em verniz, Design moderno, Inclui 6 cadeiras, Montagem fácil, Resistente à umidade",
+    "Description": "Conjunto de mesa de jantar em madeira de lei com acabamento em verniz. Design moderno que combina com qualquer ambiente. O conjunto inclui 6 cadeiras confortáveis e é fácil de montar. Além disso, a madeira é resistente à umidade, garantindo durabilidade e beleza por muito tempo."
+  },
+  {
+    "Category": "Roupas",
+    "Features": "Algodão, Estilo casual, Disponível em várias cores, Tamanhos variados, Lavável à máquina, Confortável para o dia a dia",
+    "Description": "Camisa de algodão confortável, estilo casual, disponível em várias cores para combinar com seu estilo. Com tamanhos variados, é perfeita para qualquer ocasião, desde um passeio descontraído até uma reunião informal. Pode ser lavada à máquina, facilitando a manutenção."
+  },
+  {
+    "Category": "Eletrônicos",
+    "Features": "Tela de 55 polegadas, 4K Ultra HD, Smart TV, Conectividade Wi-Fi, HDR, Controle por voz",
+    "Description": "Televisão Smart de 55 polegadas com resolução 4K Ultra HD. Ideal para quem deseja qualidade de imagem excepcional. Possui conectividade Wi-Fi, permitindo acesso a aplicativos de streaming. A tecnologia HDR proporciona cores vibrantes e um controle por voz facilita a navegação."
+  },
+  {
+    "Category": "Eletrodomésticos",
+    "Features": "Fritadeira a ar, Tecnologia de circulação de ar quente, Capacidade de 4 litros, Painel digital, Receitas pré-programadas",
+    "Description": "Fritadeira a ar com capacidade de 4 litros. Utiliza tecnologia de circulação de ar quente, permitindo fritar alimentos com menos gordura. Possui um painel digital com receitas pré-programadas, tornando o cozimento mais fácil e prático."
+  },
+  {
+    "Category": "Móveis",
+    "Features": "Sofá de 3 lugares, Estofamento em tecido, Estrutura de madeira, Almofadas soltas, Design contemporâneo",
+    "Description": "Sofá de 3 lugares com estofamento em tecido macio e estrutura de madeira resistente. O design contemporâneo combina com diferentes estilos de decoração, e as almofadas soltas oferecem conforto adicional. Ideal para salas de estar e espaços de convivência."
+  },
+  {
+    "Category": "Roupas",
+    "Features": "Material sintético, Respirável, Estilo esportivo, Tamanhos P, M, G, Secagem rápida, Disponível em várias cores",
+    "Description": "Camiseta esportiva feita de material sintético respirável. Ideal para atividades físicas, com secagem rápida e conforto garantido. Disponível nos tamanhos P, M e G, em várias cores para atender ao seu gosto pessoal."
+  }
+]

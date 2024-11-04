@@ -20,7 +20,7 @@ namespace VOM_HIVE.API.Services.Product
             ResponseModel<ProductModel> resposta = new ResponseModel<ProductModel>();
             try
             {
-                var produto = await _context.Product.FirstOrDefaultAsync(produtoBanco => produtoBanco.id_product  == id_product);
+                var produto = await _context.Product.FirstOrDefaultAsync(produtoBanco => produtoBanco.id_product == id_product);
 
                 if (produto == null)
                 {

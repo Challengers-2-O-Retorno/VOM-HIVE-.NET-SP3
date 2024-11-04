@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace VOM_HIVE.API.DTO.ProfileUser.Vinculo
+﻿namespace VOM_HIVE.API.DTO.ProfileUser.Vinculo
 {
     public class CompanyVinculoDto
     {
