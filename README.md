@@ -80,62 +80,108 @@ A escolha pela arquitetura monolítica para o desenvolvimento da nossa API foi b
 
 Além disso, o conhecimento prévio da equipe com a tecnologia envolvida favoreceu essa abordagem, proporcionando mais agilidade no desenvolvimento. A arquitetura monolítica também simplifica a integração entre os componentes do sistema, o que é crucial em projetos com prazos apertados. Essa decisão nos permite entregar um produto funcional de maneira eficiente, sem a complexidade adicional que outras arquiteturas, como microsserviços, poderiam introduzir neste momento.
 
+# IA
+Neste projeto, a IA foi implementada usando o ML.NET para fornecer funcionalidades de aprendizado de máquina integradas à API .NET Core 8.0. O modelo de IA generativa foi projetado para gerar descrições de produtos com base em suas características, tornando o processo de criação de descrições mais rápido e consistente. Para isso, o modelo é treinado em dados de produtos existentes, aprendendo padrões e estilos de descrição.
+
+Na API, a IA é chamada através de um endpoint específico, onde o usuário fornece detalhes básicos do produto e recebe uma descrição gerada automaticamente. Isso traz valor ao projeto ao automatizar uma tarefa repetitiva e agregar inteligência contextual na geração de conteúdo.
+
+# Testes xUnit
+Os testes deste projeto foram desenvolvidos para garantir a funcionalidade e a estabilidade da API. Eles cobrem tanto as operações essenciais de cada endpoint quanto a validação de fluxo de autenticação e autorização com tokens JWT.
+
+Para maior organização e reutilização, o teste de login foi configurado para ser executado primeiro e seu token armazenado, permitindo a execução de outros testes com autenticação ativa. A abordagem geral dos testes é direta e focada na verificação de respostas corretas, validação de dados retornados e resposta adequada aos diferentes cenários, como inserção, atualização, exclusão e consultas.
+
 # Estrutura de pastas da API
 <pre>
 .
-└── VOM-HIVE.API /
-    ├── Properties/
-    │   └── launchSettings.json
-    ├── Controllers/
-    │   ├── CampaignController.cs
-    │   ├── CompanyController.cs
-    │   ├── ProductController.cs
-    │   └── ProfileUserController.cs
+├── ./
+│   ├── VOM-HIVE.API/
+│   │   └── Properties/
+│   │       └── launchSettings.json
+│   ├── Controllers/
+│   │   ├── CampaignController.cs
+│   │   ├── CompanyController.cs
+│   │   ├── LoginController.cs
+│   │   ├── ProductController.cs
+│   │   ├── ProductDescriptionController.cs
+│   │   └── ProfileUserController.cs
+│   ├── Data/
+│   │   └── AppDbContext.cs
+│   ├── Dependecy/
+│   │   └── DependecyInjectionSwagger.cs
+│   ├── DTO/
+│   │   ├── Campaign/
+│   │   │   └── Vinculo/
+│   │   │       ├── CompanyVinculoDto.cs
+│   │   │       └── ProductVinculoDto.cs
+│   │   ├── CampaignCreateDto.cs
+│   │   ├── CampaignEditDto.cs
+│   │   ├── Company/
+│   │   │   ├── CompanyCreateDto.cs
+│   │   │   └── CompanyEditDto.cs
+│   │   ├── Product/
+│   │   │   ├── ProductCreateDto.cs
+│   │   │   └── ProductEditDto.cs
+│   │   └── ProfileUser/
+│   │       ├── Vinculo/
+│   │       │   └── CompanyVinculoDto.cs
+│   │       ├── ProfileUserCreateDto.cs
+│   │       └── ProfileUserEditDto.cs
+│   ├── Migrations/
+│   │   ├── 20240912231203_InitialMigration.cs
+│   │   └── AppDbContextModelSnapshot.cs
+│   ├── Models/
+│   │   ├── Campaign.cs
+│   │   ├── Company.cs
+│   │   ├── ErrorViewModel.cs
+│   │   ├── Login.cs
+│   │   ├── Product.cs
+│   │   ├── Profileuser.cs
+│   │   └── ResponseModel.cs
+│   ├── Services/
+│   │   ├── Authenticate/
+│   │   │   ├── AuthenticateService.cs
+│   │   │   └── IAuthenticateInterface.cs
+│   │   ├── Campaign/
+│   │   │   ├── CampaignService.cs
+│   │   │   └── ICampaignInterface.cs
+│   │   ├── Company/
+│   │   │   ├── CompanyService.cs
+│   │   │   └── ICompanyInterface.cs
+│   │   ├── Configuration/
+│   │   │   ├── ConfigurationService.cs
+│   │   │   └── IConfigurationInterface.cs
+│   │   ├── Product/
+│   │   │   ├── IProductInterface.cs
+│   │   │   └── ProductService.cs
+│   │   ├── ProductDescription/
+│   │   │   └── ProductDescriptionService.cs
+│   │   └── ProfileUser/
+│   │       ├── IProfileUserInterface.cs
+│   │       └── ProfileUserService.cs
+│   ├── appsettings.json
+│   ├── Program.cs
+│   └── VOM-HIVE.API.http
+├── VOM-HIVE.API/
+│   ├── Engine/
+│   │   └── MarkovChainGenerator.cs
+│   ├── Model/
+│   │   └── ProductDescriptionData.cs
+│   └── ProductDescriptionData.json
+└── VOM-HIVE.API.TESTS/
+    ├── Collection/
+    │   ├── ApiTestCollection.cs
+    │   ├── CustomOrderer.cs
+    │   └── TestPriorityAttribute.cs
     ├── Data/
-    │   └── AppDbContext.cs
-    ├── DTO/
-    │   ├── Campaign/
-    │   │   ├── Vinculo/
-    │   │   │   ├── CompanyVinculoDto.cs
-    │   │   │   └── ProductVinculoDto.cs
-    │   │   ├── CampaignCreateDto.cs
-    │   │   └── CampaignEditDto.cs
-    │   ├── Company/
-    │   │   ├── CompanyCreateDto.cs
-    │   │   └── CompanyEditDto.cs 
-    │   ├── Product/
-    │   │   ├── ProductCreateDto.cs
-    │   │   └── ProductEditDto.cs
-    │   ├── ProfileUser/
-    │   │   ├── Vinculo
-    │   │   └── CompanyVinculoDto.cs
-    │   ├── ProfileUserCreateDto.cs
-    │   └── ProfileUserEditDto.cs
-    ├── Migrations/
-    │   ├── 20240912231203_InitialMigration.cs
-    │   └── AppDbContextModelSnapshot.cs
-    ├── Models/
-    │   ├── Campaign.cs
-    │   ├── Company.cs
-    │   ├── ErrorViewModel.cs
-    │   ├── Product.cs
-    │   ├── Profileuser.cs
-    │   └── ResponseModel.cs
-    ├── Services/
-    │   ├── Campaign/
-    │   │   ├── CampaignService.cs
-    │   │   └── ICampaignInterface.cs
-    │   ├── Company/
-    │   │   ├── CompanyService.cs
-    │   │   └── ICompanyInterface.cs
-    │   ├── Product/
-    │   │   ├── ProductService.cs
-    │   │   └── IProductInterface.cs
-    │   └── ProfileUser/
-    │       ├── ProfileUserService.cs
-    │       └── IProfileUserInterface.cs
-    ├── appsettings.json
-    └── Program.cs
+    │   ├── CustomWebApplicationFactory.cs
+    │   ├── DBContextFactory.cs
+    │   └── TestDbContextFixture.cs
+    └── Tests/
+        ├── ALoginApiTest.cs
+        ├── CampaignApiTests.cs
+        ├── CompanyApiTests.cs
+        ├── ProductApiTests.cs
+        └── ProfileUserApiTests.cs
 </pre>
 
 # Design patterns
@@ -227,10 +273,13 @@ Para executar a aplicação, siga os passos abaixo:
 3. Clone o repositório para sua IDE (ex: Visual Studio 2022, Rider)
 4. No arquivo "appsettings.json" troque o campo "Id" e o "Password"
 5. Instale as dependências necessárias com o comando `dotnet restore`.
-6. Localize seu Package Manager Console digite "update database" e pressione enter.
+6. Localize seu Package Manager Console digite `update-database` e pressione enter.
 7. Dê run na API.
 8. De acordo com nossas regras de negócio, é necessário começar a operação de Create na seguinte ordem: Company, ProfileUser, Product e Campaign
-9. Fique à vontade para testar os endpoints
+9. Após realizar as as operações de Create, acesse o endpoint de login e passe o nm_user e pass_user que cadastrou na tabela de ProfileUser.
+10. Após realizar o login, recupere o token que o endpoint vai te retornar.
+11. Antes dos endpoints tem um botão escrito `Authorize`, clique nele e digite `Bearer {cole o token aqui}` e dê `Authorize`.
+12. Agora está autenticado e fique à vontade para testar todos endpoints
 
 # Integrantes
 
