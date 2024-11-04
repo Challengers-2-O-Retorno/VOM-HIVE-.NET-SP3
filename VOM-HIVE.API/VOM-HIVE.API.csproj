@@ -29,4 +29,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VOM-HIVE.AI\VOM-HIVE.API.AI.csproj" />
+  </ItemGroup>
+
 </Project>
