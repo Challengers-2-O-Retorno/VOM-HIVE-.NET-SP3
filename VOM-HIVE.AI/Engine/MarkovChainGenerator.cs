@@ -1,11 +1,4 @@
 ﻿using Microsoft.ML;
-using Microsoft.ML.Data;
-using Microsoft.ML.Trainers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VOM_HIVE.AI.Model;
 
 namespace VOM_HIVE.AI.Engine
