@@ -283,12 +283,13 @@ Para executar a aplicação, siga os passos abaixo:
 4. No arquivo "appsettings.json" troque o campo "Id" e o "Password"
 5. Instale as dependências necessárias com o comando `dotnet restore`.
 6. Localize seu Package Manager Console digite `update-database` e pressione enter.
-7. Dê run na API.
-8. De acordo com nossas regras de negócio, é necessário começar a operação de Create na seguinte ordem: Company, ProfileUser, Product e Campaign
-9. Após realizar as as operações de Create, acesse o endpoint de login e passe o nm_user e pass_user que cadastrou na tabela de ProfileUser.
-10. Após realizar o login, recupere o token que o endpoint vai te retornar.
-11. Antes dos endpoints tem um botão escrito `Authorize`, clique nele e digite `Bearer {cole o token aqui}` e dê `Authorize`.
-12. Agora está autenticado e fique à vontade para testar todos endpoints
+7. Na Program.cs na linha 123, altere o caminho correspondente ao da sua máquina do arquivo `ProductDescriptionData.json` dentro da solução VOM-HIVE.API-AI
+8. Dê run na API.
+9. De acordo com nossas regras de negócio, é necessário começar a operação de Create na seguinte ordem: Company, ProfileUser, Product e Campaign
+10. Após realizar as as operações de Create, acesse o endpoint de login e passe o nm_user e pass_user que cadastrou na tabela de ProfileUser.
+11. Após realizar o login, recupere o token que o endpoint vai te retornar.
+12. Antes dos endpoints tem um botão escrito `Authorize`, clique nele e digite `Bearer {cole o token aqui}` e dê `Authorize`.
+13. Agora está autenticado e fique à vontade para testar todos endpoints
 
 # Integrantes
 
